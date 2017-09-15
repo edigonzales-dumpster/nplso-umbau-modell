@@ -1,0 +1,24 @@
+java -jar ~/apps/ilivalidator-1.4.0/ilivalidator.jar rohr_20170901.xtf
+
+# import xtf 
+java -jar ~/apps/ili2pg-3.9.1/ili2pg.jar --dbhost geodb-dev.cgjofbdf5rqg.eu-central-1.rds.amazonaws.com --dbdatabase xanadu2 --dbusr stefan --dbpwd ziegler12 --nameByTopic --disableValidation --defaultSrsCode 2056 --sqlEnableNull --createGeomIdx --models SO_Nutzungsplanung_20170901 --dbschema rohr_alt --importTid --import rohr_20170901.xtf
+
+# update tid with sql
+
+# export xtf
+java -jar ~/apps/ili2pg-3.9.1/ili2pg.jar --dbhost geodb-dev.cgjofbdf5rqg.eu-central-1.rds.amazonaws.com --dbdatabase xanadu2 --dbusr stefan --dbpwd ziegler12 --nameByTopic --disableValidation --defaultSrsCode 2056 --sqlEnableNull --createGeomIdx --models SO_Nutzungsplanung_20170901 --dbschema rohr_alt --importTid --export rohr_20170901_export.xtf
+
+xmllint --format rohr_20170901_export.xtf -o rohr_20170901_export.xtf
+
+java -jar ~/apps/ilivalidator-1.4.0/ilivalidator.jar rohr_20170901_export.xtf
+
+# kopieren und umbenennen
+cp rohr_20170901_export.xtf rohr_20170915_umbau.xtf
+
+# search-replace modellname
+
+# ilivalidator
+java -jar ~/apps/ilivalidator-1.4.0/ilivalidator.jar rohr_20170915_umbau.xtf
+
+# Test-Import
+java -jar ~/apps/ili2pg-3.9.1/ili2pg.jar --dbhost geodb-dev.cgjofbdf5rqg.eu-central-1.rds.amazonaws.com --dbdatabase xanadu2 --dbusr stefan --dbpwd ziegler12 --nameByTopic --disableValidation --defaultSrsCode 2056 --sqlEnableNull --createGeomIdx --models SO_Nutzungsplanung_20170915 --dbschema rohr_fubar --import rohr_20170915_umbau.xtf
