@@ -22,3 +22,30 @@ java -jar ~/apps/ilivalidator-1.4.0/ilivalidator.jar rohr_20170915_umbau.xtf
 
 # Test-Import
 java -jar ~/apps/ili2pg-3.9.1/ili2pg.jar --dbhost geodb-dev.cgjofbdf5rqg.eu-central-1.rds.amazonaws.com --dbdatabase xanadu2 --dbusr stefan --dbpwd ziegler12 --nameByTopic --disableValidation --defaultSrsCode 2056 --sqlEnableNull --createGeomIdx --models SO_Nutzungsplanung_20170915 --dbschema rohr_fubar --import rohr_20170915_umbau.xtf
+
+
+
+******************* Wisen ********************
+
+# import xtf 
+java -jar ~/apps/ili2pg-3.9.1/ili2pg.jar --dbhost geodb-dev.cgjofbdf5rqg.eu-central-1.rds.amazonaws.com --dbdatabase xanadu2 --dbusr stefan --dbpwd ziegler12 --nameByTopic --disableValidation --defaultSrsCode 2056 --sqlEnableNull --createGeomIdx --models SO_Nutzungsplanung_20170901 --dbschema wisen_alt --importTid --import exp1_wis_20170926.xtf
+
+# update tid with sql
+
+# export xtf
+java -jar ~/apps/ili2pg-3.9.1/ili2pg.jar --dbhost geodb-dev.cgjofbdf5rqg.eu-central-1.rds.amazonaws.com --dbdatabase xanadu2 --dbusr stefan --dbpwd ziegler12 --nameByTopic --disableValidation --defaultSrsCode 2056 --sqlEnableNull --createGeomIdx --models SO_Nutzungsplanung_20170901 --dbschema wisen_alt --importTid --export exp1_wis_20170926_export.xtf
+
+xmllint --format exp1_wis_20170926_export.xtf -o exp1_wis_20170926_export.xtf
+
+java -jar ~/apps/ilivalidator-1.4.0/ilivalidator.jar exp1_wis_20170926_export.xtf
+
+# search-replace modellname
+cp exp1_wis_20170926_export.xtf exp1_wis_20170926_umbau.xtf
+
+# ilivalidator
+java -jar ~/apps/ilivalidator-1.4.0/ilivalidator.jar exp1_wis_20170926_umbau.xtf
+
+xmllint --format exp1_wis_20170926_umbau.xtf -o exp1_wis_20170926_umbau.xtf
+
+# Test-Import
+java -jar ~/apps/ili2pg-3.9.1/ili2pg.jar --dbhost geodb-dev.cgjofbdf5rqg.eu-central-1.rds.amazonaws.com --dbdatabase xanadu2 --dbusr stefan --dbpwd ziegler12 --nameByTopic --disableValidation --defaultSrsCode 2056 --sqlEnableNull --createGeomIdx --models SO_Nutzungsplanung_20170915 --dbschema wisen_umbau --import exp1_wis_20170926_umbau.xtf
