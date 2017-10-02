@@ -10,7 +10,7 @@ Das Pilotprojekt _Wisen_ war zum Zeitpunkt der Entdeckung bereits am Laufen. Sä
 
 `java -jar ~/apps/ili2pg-3.9.1/ili2pg.jar --dbhost geodb-dev.cgjofbdf5rqg.eu-central-1.rds.amazonaws.com --dbdatabase xanadu2 --dbusr stefan --dbpwd XXXXXXXX --nameByTopic --disableValidation --defaultSrsCode 2056 --sqlEnableNull --createGeomIdx --models SO_Nutzungsplanung_20170901 --dbschema rohr_alt --importTid --import rohr_20170901.xtf`
 
-Die `--imporTid` ist entscheident, da damit eine zusätzliche Spalte `t_ili_tid` mit den Transfer-Id aus dem XTF in der Datenbank angelegt wird.
+Die `--importTid` ist entscheident, da damit eine zusätzliche Spalte `t_ili_tid` mit den Transfer-Id aus dem XTF in der Datenbank angelegt wird.
 
 ### Update t_ili_tid
 
